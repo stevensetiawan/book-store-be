@@ -28,6 +28,7 @@ const createOrder = async (req: Request, res: Response) => {
       }
     
     const order = await OrderService.createOrder(payload);
+    
     return res.status(200).json(order);
   } catch (error) {
     if (typeof error === "string") {

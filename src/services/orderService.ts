@@ -27,10 +27,6 @@ const createOrder = async (payload: OrderPayload) => {
         point: element.point
       };
     });;
-    console.log(orderBooksPromises, 'ini roder book promses')
-    // orderBooksPromises.forEach(element => {
-    //   OrderRepository.createOrderBooks(element);
-    // });
 
     // Array to hold any errors occurred during the creation of order books
     const errors = [];
@@ -53,13 +49,6 @@ const createOrder = async (payload: OrderPayload) => {
       throw new Error(JSON.stringify({message: 'Failed to create some order books'}))
     }
 
-    // Wait for all order book creation promises to settle
-    // const results = await Promise.allSettled(orderBooksPromises);
-    // console.log(results, 'ini ada result')
-    // const rejectedResults = results.filter(result => result.status === 'rejected');
-    // console.log(rejectedResults, 'rejected result')
-    // If no errors occurred, commit the transaction
-    
       await pool.query('COMMIT');
     
       return { success: true, message: 'Order created successfully', data: orderBooksPromises };
