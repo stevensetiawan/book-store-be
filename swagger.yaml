@@ -1,0 +1,77 @@
+openapi: 3.0.0
+info:
+  title: Your API
+  description: Description of your API
+  version: 1.0.0
+paths:
+  /api/users:
+    get:
+      summary: Get all users
+      responses:
+        '200':
+          description: Successful operation
+  /api/orders:
+    post:
+      summary: Create an order
+      description: Endpoint to create a new order
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                books:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      book_id:
+                        type: integer
+                      quantity:
+                        type: integer
+                      point:
+                        type: integer
+                    required:
+                      - book_id
+                      - quantity
+                      - point
+                  required:
+                    - book_id
+                    - quantity
+                    - point
+              required:
+                - books
+      responses:
+        '200':
+          description: Order successfully created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  orderId:
+                    type: integer
+                  totalQuantity:
+                    type: integer
+                  totalPoints:
+                    type: integer
+        '400':
+          description: Invalid request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+
