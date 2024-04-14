@@ -8,4 +8,9 @@ export interface Book {
   created_at: Date;
 }
 
+export interface params {
+  showentry: number;
+  offset: number;
+}
+
 

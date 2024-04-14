@@ -12,7 +12,7 @@ const query = async <T extends QueryResultRow>(text: string, params: any[] = [])
   const start = Date.now();
   const { rows }: QueryResult<T> = await pool.query(text, params);
   const duration = Date.now() - start;
-  console.log('executed query', { text, duration, rows: rows.length });
+  
   return rows;
 };
 

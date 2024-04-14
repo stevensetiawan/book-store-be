@@ -30,3 +30,9 @@ export interface OrderPayload {
   total_quantity: number,
   total_points: number,
 }
+
+export interface OrderPayloadCancel {
+  customer_id?: number | undefined,
+  total_points: number
+  order_id: number
+}

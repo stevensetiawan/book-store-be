@@ -1,9 +1,10 @@
 import express from 'express';
 import { Request, Response, NextFunction } from 'express';
 import { Info, User2, Payload } from '../types/customer';
-import { register, loginUser } from '../controllers/userController';
+import { register, getUser } from '../controllers/userController';
 import jwt from 'jsonwebtoken';
 import passport from 'passport';
+import { jwtStrategy } from '../middlewares/passport';
 
 const router = express.Router();
 
@@ -15,23 +16,27 @@ router.post('/login', async function loginUser(req: Request, res: Response, next
                 message: info?.message,
             });
         }
-        console.log(user, 'dsni bener user kan 2?')
 
         req.login(user, { session: false }, (err) => {
             if (err) {
                 res.send(err);
             }
             // Generate JWT token
-            console.log(user, 'dsni bener user kan?')
             const payload = {
               id: user.id,
               email: user.email,
               name : user.name
             }
             const token = jwt.sign(payload, 'your-secret'); // Replace with your secret key
-            return res.json(token);
+            
+            return res.json({token});
         });
     })(req, res, next);
 });
+
+router.use(jwtStrategy)
+
+router.get('/:id', getUser);
+
 
 export default router;

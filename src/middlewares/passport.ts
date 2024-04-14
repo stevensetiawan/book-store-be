@@ -13,15 +13,11 @@ passport.use(new LocalStrategy({
       if (!user) {
           return done(null, false, { message: 'Invalid Login!' });
       }
-
-      console.log(user, 'ini sh usernya')
       
       const passwordMatch = await comparePasswords(password, user?.password);
       if (!passwordMatch) {
-        console.log('apa bener?')
           return done(null, false, { message: 'Invalid Login!' });
       }
-      console.log('apa salah?', user)
 
       return done(null, user);
   } catch (error) {
@@ -49,12 +45,10 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwtPayload, done) => {
   try {
-    console.log(jwtPayload, 'ini sh')
     const user = await findById(jwtPayload.id);
     if (!user) {
       return done(null, false);
     }
-    console.log("ini user", user)
     return done(null, user);
   } catch (error) {
     return done(error);
